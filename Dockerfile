@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 COPY prisma/schema.prisma ./prisma/
+COPY .env .
 
 RUN npm install --force
 
@@ -14,8 +15,5 @@ COPY . .
 RUN npm run build
 
 EXPOSE 80
-EXPOSE 3000
-
-RUN npm run start
 
 CMD ["npm", "start"]
