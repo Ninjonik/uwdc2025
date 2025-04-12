@@ -1,9 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+/*const nextConfig = {};
 
-export default nextConfig;
+export default nextConfig;*/
 
-/*
 import withPWA from 'next-pwa';
 
 export default withPWA({
@@ -11,4 +10,4 @@ export default withPWA({
     dest: "public",
     register: true,
     skipWaiting: true,
-});*/
+});
