@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {MdArrowForward, MdCheck, MdClose, MdOutlineAccessTime} from "react-icons/md";
 import {formatTimeDifference} from '@/utils/formatters';
 import ActivityCompletionForm from './ActivityCompletionForm';
@@ -17,6 +17,10 @@ const CurrentActivityCard = ({ currentActivity, isCompleted }) => {
     setCompleted(true);
     setShowCompletionForm(false);
   };
+
+  useEffect(() => {
+    setCompleted(isCompleted) 
+  }, [isCompleted]);
   
   return (
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-neutral/5 transition-all hoy ver:shadow-xl">

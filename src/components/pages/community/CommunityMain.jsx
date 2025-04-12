@@ -16,7 +16,8 @@ const CommunityMain = ({ initialCommunity, loggedInUser }) => {
     const [transport, setTransport] = useState("N/A");
     const socketRef = useRef(null);
 
-    const { name, avatar, currentActivity, users, activities, exercises, createdAt, id } = community;
+    const { name, avatar, currentActivity, users, activities, exercises, createdAt, id, ownerId, adminSlug } = community;
+    const isAdmin = loggedInUser?.id === ownerId;
 
     useEffect(() => {
         if (!loggedInUser?.id) {
@@ -62,6 +63,14 @@ const CommunityMain = ({ initialCommunity, loggedInUser }) => {
                 
                 setCommunity(updatedCommunity);
             });
+
+            socket.on("communityUpdate", (updatedCommunityData) => {
+                const updatedCommunity = typeof updatedCommunityData === 'string'
+                    ? JSON.parse(updatedCommunityData)
+                    : updatedCommunityData;
+
+                setCommunity(updatedCommunity);
+            });
         } catch (error) {
             console.error("Error setting up socket connection:", error);
         }
@@ -74,6 +83,7 @@ const CommunityMain = ({ initialCommunity, loggedInUser }) => {
                 socketRef.current.off("connect_error");
                 socketRef.current.off("connectionConfirmed");
                 socketRef.current.off("completionUpdate");
+                socketRef.current.off("communityUpdate");
                 socketRef.current.disconnect();
             }
         };
@@ -90,6 +100,9 @@ const CommunityMain = ({ initialCommunity, loggedInUser }) => {
                     name={name} 
                     avatar={avatar} 
                     userCount={users.length}
+                    communityId={id}
+                    adminSlug={adminSlug}
+                    isAdmin={isAdmin}
                 />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -117,3 +130,4 @@ const CommunityMain = ({ initialCommunity, loggedInUser }) => {
 };
 
 export default CommunityMain;
+

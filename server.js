@@ -144,10 +144,33 @@ class CommunitySocketHandler extends BaseSocketHandler {
             console.log(`SENDING NEW COMPLETION UPDATE TO ROOM ${id}`)
             this.io.to(id).emit("completionUpdate", newCommunityData);
         });
+
+        socket.on("sendCommunityUpdate", async ({ data }) => {
+            console.log("GOT NEW COMMUNITY UPDATE", data)
+
+            if (!socket.userId) {
+                console.error("Unauthorized: No user attached to socket");
+                return;
+            }
+
+            if(socket.userId !== -10){
+                console.error("Unauthorized: This user is not allowed to send completion updates");
+                return;
+            }
+
+            const id = data;
+
+            const newCommunityData = await getCommunityBySlug(id);
+            console.log("NCD:", newCommunityData)
+
+            console.log(`SENDING NEW COMPLETION UPDATE TO ROOM ${id}`)
+            this.io.to(id).emit("communityUpdate", newCommunityData);
+        });
         
         // Add connection confirmation
         socket.emit("connectionConfirmed", { userId: socket.userId });
     }
+
 }
 
 // Socket Server Configuration

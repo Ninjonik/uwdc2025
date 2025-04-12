@@ -129,6 +129,7 @@ exports.Prisma.CommunityScalarFieldEnum = {
   id: 'id',
   name: 'name',
   avatar: 'avatar',
+  adminSlug: 'adminSlug',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   ownerId: 'ownerId'
@@ -176,6 +177,7 @@ exports.Prisma.CommunityOrderByRelevanceFieldEnum = {
   id: 'id',
   name: 'name',
   avatar: 'avatar',
+  adminSlug: 'adminSlug',
   ownerId: 'ownerId'
 };
 

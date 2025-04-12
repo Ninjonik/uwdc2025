@@ -2386,6 +2386,7 @@ export namespace Prisma {
     id: string | null
     name: string | null
     avatar: string | null
+    adminSlug: string | null
     createdAt: Date | null
     updatedAt: Date | null
     ownerId: string | null
@@ -2395,6 +2396,7 @@ export namespace Prisma {
     id: string | null
     name: string | null
     avatar: string | null
+    adminSlug: string | null
     createdAt: Date | null
     updatedAt: Date | null
     ownerId: string | null
@@ -2404,6 +2406,7 @@ export namespace Prisma {
     id: number
     name: number
     avatar: number
+    adminSlug: number
     createdAt: number
     updatedAt: number
     ownerId: number
@@ -2415,6 +2418,7 @@ export namespace Prisma {
     id?: true
     name?: true
     avatar?: true
+    adminSlug?: true
     createdAt?: true
     updatedAt?: true
     ownerId?: true
@@ -2424,6 +2428,7 @@ export namespace Prisma {
     id?: true
     name?: true
     avatar?: true
+    adminSlug?: true
     createdAt?: true
     updatedAt?: true
     ownerId?: true
@@ -2433,6 +2438,7 @@ export namespace Prisma {
     id?: true
     name?: true
     avatar?: true
+    adminSlug?: true
     createdAt?: true
     updatedAt?: true
     ownerId?: true
@@ -2515,6 +2521,7 @@ export namespace Prisma {
     id: string
     name: string
     avatar: string
+    adminSlug: string
     createdAt: Date
     updatedAt: Date
     ownerId: string
@@ -2541,6 +2548,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     avatar?: boolean
+    adminSlug?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     ownerId?: boolean
@@ -2558,12 +2566,13 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     avatar?: boolean
+    adminSlug?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     ownerId?: boolean
   }
 
-  export type CommunityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "avatar" | "createdAt" | "updatedAt" | "ownerId", ExtArgs["result"]["community"]>
+  export type CommunityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "avatar" | "adminSlug" | "createdAt" | "updatedAt" | "ownerId", ExtArgs["result"]["community"]>
   export type CommunityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     currentActivity?: boolean | Community$currentActivityArgs<ExtArgs>
     activities?: boolean | Community$activitiesArgs<ExtArgs>
@@ -2586,6 +2595,7 @@ export namespace Prisma {
       id: string
       name: string
       avatar: string
+      adminSlug: string
       createdAt: Date
       updatedAt: Date
       ownerId: string
@@ -2966,6 +2976,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Community", 'String'>
     readonly name: FieldRef<"Community", 'String'>
     readonly avatar: FieldRef<"Community", 'String'>
+    readonly adminSlug: FieldRef<"Community", 'String'>
     readonly createdAt: FieldRef<"Community", 'DateTime'>
     readonly updatedAt: FieldRef<"Community", 'DateTime'>
     readonly ownerId: FieldRef<"Community", 'String'>
@@ -6476,6 +6487,7 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     avatar: 'avatar',
+    adminSlug: 'adminSlug',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     ownerId: 'ownerId'
@@ -6541,6 +6553,7 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     avatar: 'avatar',
+    adminSlug: 'adminSlug',
     ownerId: 'ownerId'
   };
 
@@ -6687,6 +6700,7 @@ export namespace Prisma {
     id?: StringFilter<"Community"> | string
     name?: StringFilter<"Community"> | string
     avatar?: StringFilter<"Community"> | string
+    adminSlug?: StringFilter<"Community"> | string
     createdAt?: DateTimeFilter<"Community"> | Date | string
     updatedAt?: DateTimeFilter<"Community"> | Date | string
     ownerId?: StringFilter<"Community"> | string
@@ -6701,6 +6715,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     avatar?: SortOrder
+    adminSlug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ownerId?: SortOrder
@@ -6714,6 +6729,7 @@ export namespace Prisma {
 
   export type CommunityWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    adminSlug?: string
     AND?: CommunityWhereInput | CommunityWhereInput[]
     OR?: CommunityWhereInput[]
     NOT?: CommunityWhereInput | CommunityWhereInput[]
@@ -6727,12 +6743,13 @@ export namespace Prisma {
     exercises?: ExerciseListRelationFilter
     owner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     users?: UserListRelationFilter
-  }, "id">
+  }, "id" | "adminSlug">
 
   export type CommunityOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     avatar?: SortOrder
+    adminSlug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ownerId?: SortOrder
@@ -6748,6 +6765,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Community"> | string
     name?: StringWithAggregatesFilter<"Community"> | string
     avatar?: StringWithAggregatesFilter<"Community"> | string
+    adminSlug?: StringWithAggregatesFilter<"Community"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Community"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Community"> | Date | string
     ownerId?: StringWithAggregatesFilter<"Community"> | string
@@ -7027,6 +7045,7 @@ export namespace Prisma {
     id?: string
     name: string
     avatar: string
+    adminSlug?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     currentActivity?: ActivityCreateNestedOneWithoutCurrentCommunityInput
@@ -7040,6 +7059,7 @@ export namespace Prisma {
     id?: string
     name: string
     avatar: string
+    adminSlug?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId: string
@@ -7053,6 +7073,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
+    adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     currentActivity?: ActivityUpdateOneWithoutCurrentCommunityNestedInput
@@ -7066,6 +7087,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
+    adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: StringFieldUpdateOperationsInput | string
@@ -7079,6 +7101,7 @@ export namespace Prisma {
     id?: string
     name: string
     avatar: string
+    adminSlug?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId: string
@@ -7088,6 +7111,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
+    adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7096,6 +7120,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
+    adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: StringFieldUpdateOperationsInput | string
@@ -7455,6 +7480,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     avatar?: SortOrder
+    adminSlug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ownerId?: SortOrder
@@ -7464,6 +7490,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     avatar?: SortOrder
+    adminSlug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ownerId?: SortOrder
@@ -7473,6 +7500,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     avatar?: SortOrder
+    adminSlug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ownerId?: SortOrder
@@ -8359,6 +8387,7 @@ export namespace Prisma {
     id?: string
     name: string
     avatar: string
+    adminSlug?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     currentActivity?: ActivityCreateNestedOneWithoutCurrentCommunityInput
@@ -8371,6 +8400,7 @@ export namespace Prisma {
     id?: string
     name: string
     avatar: string
+    adminSlug?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId: string
@@ -8388,6 +8418,7 @@ export namespace Prisma {
     id?: string
     name: string
     avatar: string
+    adminSlug?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     currentActivity?: ActivityCreateNestedOneWithoutCurrentCommunityInput
@@ -8400,6 +8431,7 @@ export namespace Prisma {
     id?: string
     name: string
     avatar: string
+    adminSlug?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     currentActivity?: ActivityUncheckedCreateNestedOneWithoutCurrentCommunityInput
@@ -8470,6 +8502,7 @@ export namespace Prisma {
     id?: StringFilter<"Community"> | string
     name?: StringFilter<"Community"> | string
     avatar?: StringFilter<"Community"> | string
+    adminSlug?: StringFilter<"Community"> | string
     createdAt?: DateTimeFilter<"Community"> | Date | string
     updatedAt?: DateTimeFilter<"Community"> | Date | string
     ownerId?: StringFilter<"Community"> | string
@@ -8765,6 +8798,7 @@ export namespace Prisma {
     id?: string
     name: string
     avatar: string
+    adminSlug?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     currentActivity?: ActivityCreateNestedOneWithoutCurrentCommunityInput
@@ -8777,6 +8811,7 @@ export namespace Prisma {
     id?: string
     name: string
     avatar: string
+    adminSlug?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId: string
@@ -8968,6 +9003,7 @@ export namespace Prisma {
     id?: string
     name: string
     avatar: string
+    adminSlug?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     activities?: ActivityCreateNestedManyWithoutCommunityInput
@@ -8980,6 +9016,7 @@ export namespace Prisma {
     id?: string
     name: string
     avatar: string
+    adminSlug?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId: string
@@ -9018,6 +9055,7 @@ export namespace Prisma {
     id?: string
     name: string
     avatar: string
+    adminSlug?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     currentActivity?: ActivityCreateNestedOneWithoutCurrentCommunityInput
@@ -9030,6 +9068,7 @@ export namespace Prisma {
     id?: string
     name: string
     avatar: string
+    adminSlug?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId: string
@@ -9086,6 +9125,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
+    adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     activities?: ActivityUpdateManyWithoutCommunityNestedInput
@@ -9098,6 +9138,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
+    adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: StringFieldUpdateOperationsInput | string
@@ -9148,6 +9189,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
+    adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     currentActivity?: ActivityUpdateOneWithoutCurrentCommunityNestedInput
@@ -9160,6 +9202,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
+    adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: StringFieldUpdateOperationsInput | string
@@ -9197,6 +9240,7 @@ export namespace Prisma {
     id?: string
     name: string
     avatar: string
+    adminSlug?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -9232,6 +9276,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
+    adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     currentActivity?: ActivityUpdateOneWithoutCurrentCommunityNestedInput
@@ -9244,6 +9289,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
+    adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: StringFieldUpdateOperationsInput | string
@@ -9256,6 +9302,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
+    adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: StringFieldUpdateOperationsInput | string
@@ -9265,6 +9312,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
+    adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     currentActivity?: ActivityUpdateOneWithoutCurrentCommunityNestedInput
@@ -9277,6 +9325,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
+    adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     currentActivity?: ActivityUncheckedUpdateOneWithoutCurrentCommunityNestedInput
@@ -9289,6 +9338,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
+    adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9395,6 +9445,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
+    adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     currentActivity?: ActivityUpdateOneWithoutCurrentCommunityNestedInput
@@ -9407,6 +9458,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
+    adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: StringFieldUpdateOperationsInput | string
@@ -9419,6 +9471,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
+    adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: StringFieldUpdateOperationsInput | string

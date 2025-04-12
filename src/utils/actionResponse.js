@@ -1,18 +1,10 @@
-export const errorMessage = (message)  => {
+export const errorMessage = (message, data) => {
     return {
         message: message,
         type: "error",
-    };
-};
-
-export const infoMessage = (message, data) => {
-    return {
-        message: message,
-        type: "info",
         data: data ?? undefined,
     };
 };
-
 export const successMessage = (message, data) => {
     return {
         message: message,
