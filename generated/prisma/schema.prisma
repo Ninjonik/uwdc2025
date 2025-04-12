@@ -26,18 +26,20 @@ model User {
 }
 
 model Community {
-  id              String     @id @default(cuid())
-  name            String
-  avatar          String
-  adminSlug       String     @unique @default(cuid())
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
-  currentActivity Activity?  @relation("CurrentActivity")
-  activities      Activity[] @relation("Community")
-  exercises       Exercise[]
-  ownerId         String
-  owner           User?      @relation("OwnedCommunities", fields: [ownerId], references: [id])
-  users           User[]
+  id               String     @id @default(cuid())
+  name             String
+  avatar           String
+  adminSlug        String     @unique @default(cuid())
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  currentActivity  Activity?  @relation("CurrentActivity")
+  activities       Activity[] @relation("Community")
+  exercises        Exercise[]
+  ownerId          String
+  owner            User?      @relation("OwnedCommunities", fields: [ownerId], references: [id])
+  users            User[]
+  participantLimit Int        @default(0)
+  exerciseLimit    Int        @default(0)
 }
 
 model Exercise {
@@ -63,7 +65,7 @@ model Completion {
 
 model Activity {
   id                 String       @id @default(cuid())
-  communityId        String       @unique
+  communityId        String
   currentCommunityId String?      @unique
   exerciseId         String
   status             Int          @default(0)

@@ -1,27 +1,17 @@
 {
   "name": "ActivePulse",
   "short_name": "ActivePulse",
-  "theme_color": "#00ff00",
-  "background_color": "#ffffff",
+  "theme_color": "#f26309",
+  "background_color": "#f5f1e8",
   "display": "standalone",
   "orientation": "any",
   "scope": "/",
   "start_url": "/",
   "icons": [
     {
-      "src": "/icon-192x192.png",
+      "src": "/logo/logo.png",
       "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "/icon-256x256.png",
-      "type": "image/png",
-      "sizes": "256x256"
-    },
-    {
-      "src": "/icon-512x512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "200x200"
     }
   ]
 }

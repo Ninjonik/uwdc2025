@@ -2378,8 +2378,20 @@ export namespace Prisma {
 
   export type AggregateCommunity = {
     _count: CommunityCountAggregateOutputType | null
+    _avg: CommunityAvgAggregateOutputType | null
+    _sum: CommunitySumAggregateOutputType | null
     _min: CommunityMinAggregateOutputType | null
     _max: CommunityMaxAggregateOutputType | null
+  }
+
+  export type CommunityAvgAggregateOutputType = {
+    participantLimit: number | null
+    exerciseLimit: number | null
+  }
+
+  export type CommunitySumAggregateOutputType = {
+    participantLimit: number | null
+    exerciseLimit: number | null
   }
 
   export type CommunityMinAggregateOutputType = {
@@ -2390,6 +2402,8 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     ownerId: string | null
+    participantLimit: number | null
+    exerciseLimit: number | null
   }
 
   export type CommunityMaxAggregateOutputType = {
@@ -2400,6 +2414,8 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     ownerId: string | null
+    participantLimit: number | null
+    exerciseLimit: number | null
   }
 
   export type CommunityCountAggregateOutputType = {
@@ -2410,9 +2426,21 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     ownerId: number
+    participantLimit: number
+    exerciseLimit: number
     _all: number
   }
 
+
+  export type CommunityAvgAggregateInputType = {
+    participantLimit?: true
+    exerciseLimit?: true
+  }
+
+  export type CommunitySumAggregateInputType = {
+    participantLimit?: true
+    exerciseLimit?: true
+  }
 
   export type CommunityMinAggregateInputType = {
     id?: true
@@ -2422,6 +2450,8 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     ownerId?: true
+    participantLimit?: true
+    exerciseLimit?: true
   }
 
   export type CommunityMaxAggregateInputType = {
@@ -2432,6 +2462,8 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     ownerId?: true
+    participantLimit?: true
+    exerciseLimit?: true
   }
 
   export type CommunityCountAggregateInputType = {
@@ -2442,6 +2474,8 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     ownerId?: true
+    participantLimit?: true
+    exerciseLimit?: true
     _all?: true
   }
 
@@ -2483,6 +2517,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: CommunityAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CommunitySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: CommunityMinAggregateInputType
@@ -2513,6 +2559,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: CommunityCountAggregateInputType | true
+    _avg?: CommunityAvgAggregateInputType
+    _sum?: CommunitySumAggregateInputType
     _min?: CommunityMinAggregateInputType
     _max?: CommunityMaxAggregateInputType
   }
@@ -2525,7 +2573,11 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     ownerId: string
+    participantLimit: number
+    exerciseLimit: number
     _count: CommunityCountAggregateOutputType | null
+    _avg: CommunityAvgAggregateOutputType | null
+    _sum: CommunitySumAggregateOutputType | null
     _min: CommunityMinAggregateOutputType | null
     _max: CommunityMaxAggregateOutputType | null
   }
@@ -2552,6 +2604,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     ownerId?: boolean
+    participantLimit?: boolean
+    exerciseLimit?: boolean
     currentActivity?: boolean | Community$currentActivityArgs<ExtArgs>
     activities?: boolean | Community$activitiesArgs<ExtArgs>
     exercises?: boolean | Community$exercisesArgs<ExtArgs>
@@ -2570,9 +2624,11 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     ownerId?: boolean
+    participantLimit?: boolean
+    exerciseLimit?: boolean
   }
 
-  export type CommunityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "avatar" | "adminSlug" | "createdAt" | "updatedAt" | "ownerId", ExtArgs["result"]["community"]>
+  export type CommunityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "avatar" | "adminSlug" | "createdAt" | "updatedAt" | "ownerId" | "participantLimit" | "exerciseLimit", ExtArgs["result"]["community"]>
   export type CommunityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     currentActivity?: boolean | Community$currentActivityArgs<ExtArgs>
     activities?: boolean | Community$activitiesArgs<ExtArgs>
@@ -2599,6 +2655,8 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       ownerId: string
+      participantLimit: number
+      exerciseLimit: number
     }, ExtArgs["result"]["community"]>
     composites: {}
   }
@@ -2980,6 +3038,8 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Community", 'DateTime'>
     readonly updatedAt: FieldRef<"Community", 'DateTime'>
     readonly ownerId: FieldRef<"Community", 'String'>
+    readonly participantLimit: FieldRef<"Community", 'Int'>
+    readonly exerciseLimit: FieldRef<"Community", 'Int'>
   }
     
 
@@ -6490,7 +6550,9 @@ export namespace Prisma {
     adminSlug: 'adminSlug',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    ownerId: 'ownerId'
+    ownerId: 'ownerId',
+    participantLimit: 'participantLimit',
+    exerciseLimit: 'exerciseLimit'
   };
 
   export type CommunityScalarFieldEnum = (typeof CommunityScalarFieldEnum)[keyof typeof CommunityScalarFieldEnum]
@@ -6704,6 +6766,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Community"> | Date | string
     updatedAt?: DateTimeFilter<"Community"> | Date | string
     ownerId?: StringFilter<"Community"> | string
+    participantLimit?: IntFilter<"Community"> | number
+    exerciseLimit?: IntFilter<"Community"> | number
     currentActivity?: XOR<ActivityNullableScalarRelationFilter, ActivityWhereInput> | null
     activities?: ActivityListRelationFilter
     exercises?: ExerciseListRelationFilter
@@ -6719,6 +6783,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ownerId?: SortOrder
+    participantLimit?: SortOrder
+    exerciseLimit?: SortOrder
     currentActivity?: ActivityOrderByWithRelationInput
     activities?: ActivityOrderByRelationAggregateInput
     exercises?: ExerciseOrderByRelationAggregateInput
@@ -6738,6 +6804,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Community"> | Date | string
     updatedAt?: DateTimeFilter<"Community"> | Date | string
     ownerId?: StringFilter<"Community"> | string
+    participantLimit?: IntFilter<"Community"> | number
+    exerciseLimit?: IntFilter<"Community"> | number
     currentActivity?: XOR<ActivityNullableScalarRelationFilter, ActivityWhereInput> | null
     activities?: ActivityListRelationFilter
     exercises?: ExerciseListRelationFilter
@@ -6753,9 +6821,13 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ownerId?: SortOrder
+    participantLimit?: SortOrder
+    exerciseLimit?: SortOrder
     _count?: CommunityCountOrderByAggregateInput
+    _avg?: CommunityAvgOrderByAggregateInput
     _max?: CommunityMaxOrderByAggregateInput
     _min?: CommunityMinOrderByAggregateInput
+    _sum?: CommunitySumOrderByAggregateInput
   }
 
   export type CommunityScalarWhereWithAggregatesInput = {
@@ -6769,6 +6841,8 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Community"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Community"> | Date | string
     ownerId?: StringWithAggregatesFilter<"Community"> | string
+    participantLimit?: IntWithAggregatesFilter<"Community"> | number
+    exerciseLimit?: IntWithAggregatesFilter<"Community"> | number
   }
 
   export type ExerciseWhereInput = {
@@ -6930,11 +7004,11 @@ export namespace Prisma {
 
   export type ActivityWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    communityId?: string
     currentCommunityId?: string
     AND?: ActivityWhereInput | ActivityWhereInput[]
     OR?: ActivityWhereInput[]
     NOT?: ActivityWhereInput | ActivityWhereInput[]
+    communityId?: StringFilter<"Activity"> | string
     exerciseId?: StringFilter<"Activity"> | string
     status?: IntFilter<"Activity"> | number
     createdAt?: DateTimeFilter<"Activity"> | Date | string
@@ -6943,7 +7017,7 @@ export namespace Prisma {
     exercise?: XOR<ExerciseScalarRelationFilter, ExerciseWhereInput>
     community?: XOR<CommunityScalarRelationFilter, CommunityWhereInput>
     completions?: CompletionListRelationFilter
-  }, "id" | "communityId" | "currentCommunityId">
+  }, "id" | "currentCommunityId">
 
   export type ActivityOrderByWithAggregationInput = {
     id?: SortOrder
@@ -7048,6 +7122,8 @@ export namespace Prisma {
     adminSlug?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    participantLimit?: number
+    exerciseLimit?: number
     currentActivity?: ActivityCreateNestedOneWithoutCurrentCommunityInput
     activities?: ActivityCreateNestedManyWithoutCommunityInput
     exercises?: ExerciseCreateNestedManyWithoutCommunitiesInput
@@ -7063,6 +7139,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId: string
+    participantLimit?: number
+    exerciseLimit?: number
     currentActivity?: ActivityUncheckedCreateNestedOneWithoutCurrentCommunityInput
     activities?: ActivityUncheckedCreateNestedManyWithoutCommunityInput
     exercises?: ExerciseUncheckedCreateNestedManyWithoutCommunitiesInput
@@ -7076,6 +7154,8 @@ export namespace Prisma {
     adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participantLimit?: IntFieldUpdateOperationsInput | number
+    exerciseLimit?: IntFieldUpdateOperationsInput | number
     currentActivity?: ActivityUpdateOneWithoutCurrentCommunityNestedInput
     activities?: ActivityUpdateManyWithoutCommunityNestedInput
     exercises?: ExerciseUpdateManyWithoutCommunitiesNestedInput
@@ -7091,6 +7171,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: StringFieldUpdateOperationsInput | string
+    participantLimit?: IntFieldUpdateOperationsInput | number
+    exerciseLimit?: IntFieldUpdateOperationsInput | number
     currentActivity?: ActivityUncheckedUpdateOneWithoutCurrentCommunityNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutCommunityNestedInput
     exercises?: ExerciseUncheckedUpdateManyWithoutCommunitiesNestedInput
@@ -7105,6 +7187,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId: string
+    participantLimit?: number
+    exerciseLimit?: number
   }
 
   export type CommunityUpdateManyMutationInput = {
@@ -7114,6 +7198,8 @@ export namespace Prisma {
     adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participantLimit?: IntFieldUpdateOperationsInput | number
+    exerciseLimit?: IntFieldUpdateOperationsInput | number
   }
 
   export type CommunityUncheckedUpdateManyInput = {
@@ -7124,6 +7210,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: StringFieldUpdateOperationsInput | string
+    participantLimit?: IntFieldUpdateOperationsInput | number
+    exerciseLimit?: IntFieldUpdateOperationsInput | number
   }
 
   export type ExerciseCreateInput = {
@@ -7430,6 +7518,17 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type ActivityNullableScalarRelationFilter = {
     is?: ActivityWhereInput | null
     isNot?: ActivityWhereInput | null
@@ -7484,6 +7583,13 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ownerId?: SortOrder
+    participantLimit?: SortOrder
+    exerciseLimit?: SortOrder
+  }
+
+  export type CommunityAvgOrderByAggregateInput = {
+    participantLimit?: SortOrder
+    exerciseLimit?: SortOrder
   }
 
   export type CommunityMaxOrderByAggregateInput = {
@@ -7494,6 +7600,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ownerId?: SortOrder
+    participantLimit?: SortOrder
+    exerciseLimit?: SortOrder
   }
 
   export type CommunityMinOrderByAggregateInput = {
@@ -7504,6 +7612,29 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ownerId?: SortOrder
+    participantLimit?: SortOrder
+    exerciseLimit?: SortOrder
+  }
+
+  export type CommunitySumOrderByAggregateInput = {
+    participantLimit?: SortOrder
+    exerciseLimit?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type ExerciseOrderByRelevanceInput = {
@@ -7531,17 +7662,6 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type UserScalarRelationFilter = {
@@ -7598,22 +7718,6 @@ export namespace Prisma {
   export type CompletionSumOrderByAggregateInput = {
     reps?: SortOrder
     reaction?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -7899,6 +8003,14 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type ActivityUpdateOneWithoutCurrentCommunityNestedInput = {
     create?: XOR<ActivityCreateWithoutCurrentCommunityInput, ActivityUncheckedCreateWithoutCurrentCommunityInput>
     connectOrCreate?: ActivityCreateOrConnectWithoutCurrentCommunityInput
@@ -8099,14 +8211,6 @@ export namespace Prisma {
     create?: XOR<ActivityCreateWithoutCompletionsInput, ActivityUncheckedCreateWithoutCompletionsInput>
     connectOrCreate?: ActivityCreateOrConnectWithoutCompletionsInput
     connect?: ActivityWhereUniqueInput
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type UserUpdateOneRequiredWithoutCompletionsNestedInput = {
@@ -8390,6 +8494,8 @@ export namespace Prisma {
     adminSlug?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    participantLimit?: number
+    exerciseLimit?: number
     currentActivity?: ActivityCreateNestedOneWithoutCurrentCommunityInput
     activities?: ActivityCreateNestedManyWithoutCommunityInput
     exercises?: ExerciseCreateNestedManyWithoutCommunitiesInput
@@ -8404,6 +8510,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId: string
+    participantLimit?: number
+    exerciseLimit?: number
     currentActivity?: ActivityUncheckedCreateNestedOneWithoutCurrentCommunityInput
     activities?: ActivityUncheckedCreateNestedManyWithoutCommunityInput
     exercises?: ExerciseUncheckedCreateNestedManyWithoutCommunitiesInput
@@ -8421,6 +8529,8 @@ export namespace Prisma {
     adminSlug?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    participantLimit?: number
+    exerciseLimit?: number
     currentActivity?: ActivityCreateNestedOneWithoutCurrentCommunityInput
     activities?: ActivityCreateNestedManyWithoutCommunityInput
     exercises?: ExerciseCreateNestedManyWithoutCommunitiesInput
@@ -8434,6 +8544,8 @@ export namespace Prisma {
     adminSlug?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    participantLimit?: number
+    exerciseLimit?: number
     currentActivity?: ActivityUncheckedCreateNestedOneWithoutCurrentCommunityInput
     activities?: ActivityUncheckedCreateNestedManyWithoutCommunityInput
     exercises?: ExerciseUncheckedCreateNestedManyWithoutCommunitiesInput
@@ -8506,6 +8618,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Community"> | Date | string
     updatedAt?: DateTimeFilter<"Community"> | Date | string
     ownerId?: StringFilter<"Community"> | string
+    participantLimit?: IntFilter<"Community"> | number
+    exerciseLimit?: IntFilter<"Community"> | number
   }
 
   export type CommunityUpsertWithWhereUniqueWithoutOwnerInput = {
@@ -8801,6 +8915,8 @@ export namespace Prisma {
     adminSlug?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    participantLimit?: number
+    exerciseLimit?: number
     currentActivity?: ActivityCreateNestedOneWithoutCurrentCommunityInput
     activities?: ActivityCreateNestedManyWithoutCommunityInput
     owner?: UserCreateNestedOneWithoutOwnedCommunitiesInput
@@ -8815,6 +8931,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId: string
+    participantLimit?: number
+    exerciseLimit?: number
     currentActivity?: ActivityUncheckedCreateNestedOneWithoutCurrentCommunityInput
     activities?: ActivityUncheckedCreateNestedManyWithoutCommunityInput
     users?: UserUncheckedCreateNestedManyWithoutCommunitiesInput
@@ -9006,6 +9124,8 @@ export namespace Prisma {
     adminSlug?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    participantLimit?: number
+    exerciseLimit?: number
     activities?: ActivityCreateNestedManyWithoutCommunityInput
     exercises?: ExerciseCreateNestedManyWithoutCommunitiesInput
     owner?: UserCreateNestedOneWithoutOwnedCommunitiesInput
@@ -9020,6 +9140,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId: string
+    participantLimit?: number
+    exerciseLimit?: number
     activities?: ActivityUncheckedCreateNestedManyWithoutCommunityInput
     exercises?: ExerciseUncheckedCreateNestedManyWithoutCommunitiesInput
     users?: UserUncheckedCreateNestedManyWithoutCommunitiesInput
@@ -9058,6 +9180,8 @@ export namespace Prisma {
     adminSlug?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    participantLimit?: number
+    exerciseLimit?: number
     currentActivity?: ActivityCreateNestedOneWithoutCurrentCommunityInput
     exercises?: ExerciseCreateNestedManyWithoutCommunitiesInput
     owner?: UserCreateNestedOneWithoutOwnedCommunitiesInput
@@ -9072,6 +9196,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId: string
+    participantLimit?: number
+    exerciseLimit?: number
     currentActivity?: ActivityUncheckedCreateNestedOneWithoutCurrentCommunityInput
     exercises?: ExerciseUncheckedCreateNestedManyWithoutCommunitiesInput
     users?: UserUncheckedCreateNestedManyWithoutCommunitiesInput
@@ -9128,6 +9254,8 @@ export namespace Prisma {
     adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participantLimit?: IntFieldUpdateOperationsInput | number
+    exerciseLimit?: IntFieldUpdateOperationsInput | number
     activities?: ActivityUpdateManyWithoutCommunityNestedInput
     exercises?: ExerciseUpdateManyWithoutCommunitiesNestedInput
     owner?: UserUpdateOneWithoutOwnedCommunitiesNestedInput
@@ -9142,6 +9270,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: StringFieldUpdateOperationsInput | string
+    participantLimit?: IntFieldUpdateOperationsInput | number
+    exerciseLimit?: IntFieldUpdateOperationsInput | number
     activities?: ActivityUncheckedUpdateManyWithoutCommunityNestedInput
     exercises?: ExerciseUncheckedUpdateManyWithoutCommunitiesNestedInput
     users?: UserUncheckedUpdateManyWithoutCommunitiesNestedInput
@@ -9192,6 +9322,8 @@ export namespace Prisma {
     adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participantLimit?: IntFieldUpdateOperationsInput | number
+    exerciseLimit?: IntFieldUpdateOperationsInput | number
     currentActivity?: ActivityUpdateOneWithoutCurrentCommunityNestedInput
     exercises?: ExerciseUpdateManyWithoutCommunitiesNestedInput
     owner?: UserUpdateOneWithoutOwnedCommunitiesNestedInput
@@ -9206,6 +9338,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: StringFieldUpdateOperationsInput | string
+    participantLimit?: IntFieldUpdateOperationsInput | number
+    exerciseLimit?: IntFieldUpdateOperationsInput | number
     currentActivity?: ActivityUncheckedUpdateOneWithoutCurrentCommunityNestedInput
     exercises?: ExerciseUncheckedUpdateManyWithoutCommunitiesNestedInput
     users?: UserUncheckedUpdateManyWithoutCommunitiesNestedInput
@@ -9243,6 +9377,8 @@ export namespace Prisma {
     adminSlug?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    participantLimit?: number
+    exerciseLimit?: number
   }
 
   export type CompletionUpdateWithoutUserInput = {
@@ -9279,6 +9415,8 @@ export namespace Prisma {
     adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participantLimit?: IntFieldUpdateOperationsInput | number
+    exerciseLimit?: IntFieldUpdateOperationsInput | number
     currentActivity?: ActivityUpdateOneWithoutCurrentCommunityNestedInput
     activities?: ActivityUpdateManyWithoutCommunityNestedInput
     exercises?: ExerciseUpdateManyWithoutCommunitiesNestedInput
@@ -9293,6 +9431,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: StringFieldUpdateOperationsInput | string
+    participantLimit?: IntFieldUpdateOperationsInput | number
+    exerciseLimit?: IntFieldUpdateOperationsInput | number
     currentActivity?: ActivityUncheckedUpdateOneWithoutCurrentCommunityNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutCommunityNestedInput
     exercises?: ExerciseUncheckedUpdateManyWithoutCommunitiesNestedInput
@@ -9306,6 +9446,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: StringFieldUpdateOperationsInput | string
+    participantLimit?: IntFieldUpdateOperationsInput | number
+    exerciseLimit?: IntFieldUpdateOperationsInput | number
   }
 
   export type CommunityUpdateWithoutOwnerInput = {
@@ -9315,6 +9457,8 @@ export namespace Prisma {
     adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participantLimit?: IntFieldUpdateOperationsInput | number
+    exerciseLimit?: IntFieldUpdateOperationsInput | number
     currentActivity?: ActivityUpdateOneWithoutCurrentCommunityNestedInput
     activities?: ActivityUpdateManyWithoutCommunityNestedInput
     exercises?: ExerciseUpdateManyWithoutCommunitiesNestedInput
@@ -9328,6 +9472,8 @@ export namespace Prisma {
     adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participantLimit?: IntFieldUpdateOperationsInput | number
+    exerciseLimit?: IntFieldUpdateOperationsInput | number
     currentActivity?: ActivityUncheckedUpdateOneWithoutCurrentCommunityNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutCommunityNestedInput
     exercises?: ExerciseUncheckedUpdateManyWithoutCommunitiesNestedInput
@@ -9341,6 +9487,8 @@ export namespace Prisma {
     adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participantLimit?: IntFieldUpdateOperationsInput | number
+    exerciseLimit?: IntFieldUpdateOperationsInput | number
   }
 
   export type ActivityCreateManyCommunityInput = {
@@ -9448,6 +9596,8 @@ export namespace Prisma {
     adminSlug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participantLimit?: IntFieldUpdateOperationsInput | number
+    exerciseLimit?: IntFieldUpdateOperationsInput | number
     currentActivity?: ActivityUpdateOneWithoutCurrentCommunityNestedInput
     activities?: ActivityUpdateManyWithoutCommunityNestedInput
     owner?: UserUpdateOneWithoutOwnedCommunitiesNestedInput
@@ -9462,6 +9612,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: StringFieldUpdateOperationsInput | string
+    participantLimit?: IntFieldUpdateOperationsInput | number
+    exerciseLimit?: IntFieldUpdateOperationsInput | number
     currentActivity?: ActivityUncheckedUpdateOneWithoutCurrentCommunityNestedInput
     activities?: ActivityUncheckedUpdateManyWithoutCommunityNestedInput
     users?: UserUncheckedUpdateManyWithoutCommunitiesNestedInput
@@ -9475,6 +9627,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: StringFieldUpdateOperationsInput | string
+    participantLimit?: IntFieldUpdateOperationsInput | number
+    exerciseLimit?: IntFieldUpdateOperationsInput | number
   }
 
   export type ActivityUpdateWithoutExerciseInput = {

@@ -132,7 +132,9 @@ exports.Prisma.CommunityScalarFieldEnum = {
   adminSlug: 'adminSlug',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  ownerId: 'ownerId'
+  ownerId: 'ownerId',
+  participantLimit: 'participantLimit',
+  exerciseLimit: 'exerciseLimit'
 };
 
 exports.Prisma.ExerciseScalarFieldEnum = {
