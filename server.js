@@ -3,17 +3,44 @@ import {Server as SocketServer} from "socket.io";
 import next from "next";
 import {PrismaClient} from "./generated/prisma/client.js";
 
+const getCommunityBySlug = async (slug) => {
+    return prisma.community.findUnique({
+        where: {
+            id: slug,
+        },
+        include: {
+            users: true,
+            activities: true,
+            exercises: true,
+            currentActivity: {
+                include: {
+                    exercise: true,
+                    completions: {
+                        include: {
+                            user: true,
+                        },
+                        orderBy: {
+                            reaction: 'asc',
+                        }
+                    },
+                }
+            },
+        }
+    });
+}
+
 // Authentication Service
 class AuthenticationService {
     static async authenticateSocket(socket, options) {
         const userId = socket.handshake.query.userId;
 
         if (userId === process.env.INTERNAL_WEBSOCKETS_TOKEN) {
+            console.log("Internal token provided");
             return -10;
         }
 
         if (!userId) {
-            console.error("No token provided");
+            console.error("No userId provided", userId, socket.handshake.query);
             return false;
         }
 
@@ -23,6 +50,7 @@ class AuthenticationService {
                     await options.additionalValidation(userId);
                 if (!additionalValidationResult) {
                     console.error("Additional validation failed");
+                    console.log("Disconnecting socket");
                     return false;
                 }
             }
@@ -55,10 +83,8 @@ class BaseSocketHandler {
 class SocketHandlerFactory {
     static createHandler(type, io, prisma) {
         switch (type) {
-            case "chat":
-                return new ChatSocketHandler(io, prisma);
-            case "project":
-                return new ProjectSocketHandler(io, prisma);
+            case "community":
+                return new CommunitySocketHandler(io, prisma);
             default:
                 throw new Error(`Unsupported socket handler type: ${type}`);
         }
@@ -66,74 +92,57 @@ class SocketHandlerFactory {
 }
 
 // Chat-specific Handler
-class ChatSocketHandler extends BaseSocketHandler {
+class CommunitySocketHandler extends BaseSocketHandler {
     async validateRoomAccess(socket, roomId) {
-        if (!socket.userId) return false;
+        if (!socket.userId) {
+            console.error("Unauthorized: No user attached to socket");
+            return false
+        }
 
         if (socket.userId === -10) {
+            console.log("Internal token provided");
             return true;
         }
 
-        // Handle client user check in the future
+        const communityCheck = await this.prisma.community.findFirst({
+            where: {
+                id: roomId,
+                users: {
+                    some: {
+                        id: socket.userId,
+                    }
+                }
+            }
+        })
 
+        if (communityCheck)
+            return true;
+
+        console.error(`Unauthorized room access: ${roomId}`);
         return false;
     }
 
     registerHandlers(socket) {
-        socket.on("sendMessage", async ({ message }) => {
+        socket.on("sendCompletionUpdate", async ({ newActivityCompletion }) => {
+            console.log("GOT NEW COMPLETION UPDATE", newActivityCompletion)
+
             if (!socket.userId) {
                 console.error("Unauthorized: No user attached to socket");
                 return;
             }
 
-            const parsedMessage = JSON.parse(message);
-            const chatId = parsedMessage.chatId;
-
-            const chatCheck = await this.prisma.chat.findFirst({
-                where: {
-                    id: chatId,
-                    OR: [
-                        { firstUserId: socket.userId },
-                        { secondUserId: socket.userId },
-                    ],
-                },
-            });
-
-            if (!chatCheck) {
-                console.error(`Unauthorized chat access: ${chatId}`);
+            if(socket.userId !== -10){
+                console.error("Unauthorized: This user is not allowed to send completion updates");
                 return;
             }
 
-            this.io.to(chatId.toString()).emit("newMessage", message);
-        });
+            const parsedData = JSON.parse(newActivityCompletion);
+            const id = parsedData.id;
 
-        socket.on("sendEditTicket", async ({ ticket }) => {
-            if (!socket.userId) {
-                console.error("Unauthorized: No user attached to socket");
-                return;
-            }
+            const newCommunityData = await getCommunityBySlug(id);
 
-            const parsedTicket = JSON.parse(ticket);
-            const chatId = parsedTicket.id;
-
-            if (socket.userId !== -10) {
-                const chatCheck = await this.prisma.chat.findFirst({
-                    where: {
-                        id: chatId,
-                        OR: [
-                            { firstUserId: socket.userId },
-                            { secondUserId: socket.userId },
-                        ],
-                    },
-                });
-
-                if (!chatCheck) {
-                    console.error(`Unauthorized ticket edit: ${chatId}`);
-                    return;
-                }
-            }
-
-            this.io.to(chatId.toString()).emit("editTicket", ticket);
+            console.log("SENDING NEW COMPLETION UPDATE", newCommunityData)
+            this.io.to(id).emit("completionUpdate", newCommunityData);
         });
     }
 }
@@ -143,8 +152,7 @@ class SocketServerConfig {
     constructor(prisma, dev = process.env.NODE_ENV !== "production") {
         this.prisma = prisma;
         this.dev = dev;
-        this.hostname =
-            process.env.NEXT_PUBLIC_HOST ?? (dev ? "localhost" : "0.0.0.0");
+        this.hostname = "0.0.0.0";
         this.port = dev ? 3000 : 80;
     }
 

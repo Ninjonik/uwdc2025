@@ -1,8 +1,7 @@
 import prisma from "@/lib/prisma";
 
-// Get community by slug (id)
 export const getCommunityBySlug = async (slug) => {
-    const community = await prisma.community.findUnique({
+    return prisma.community.findUnique({
         where: {
             id: slug,
         },
@@ -13,10 +12,16 @@ export const getCommunityBySlug = async (slug) => {
             currentActivity: {
                 include: {
                     exercise: true,
+                    completions: {
+                        include: {
+                            user: true,
+                        },
+                        orderBy: {
+                            reaction: 'asc',
+                        }
+                    },
                 }
             },
         }
-    })
-
-    return community;
+    });
 }

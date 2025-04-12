@@ -1,7 +1,7 @@
 import {io} from "socket.io-client";
 
 export const handleSocket = (options) => {
-    const { type, roomId, token } = options;
+    const { type, roomId, userId } = options;
 
     if (!type || !roomId) {
         throw new Error("Socket connection requires a type and roomId");
@@ -15,11 +15,12 @@ export const handleSocket = (options) => {
         query: {
             type,
             roomId: roomId.toString(),
-            ...(token && { token }),
+            userId,
         },
+        origins:"*",
     };
 
-    return io("127.0.0.1", connectionOptions);
+    return io(process.env.NEXT_PUBLIC_HOSTNAME || "", connectionOptions);
 };
 
 export const handleSocketEmit = (type, roomId, event, data) => {
@@ -28,7 +29,7 @@ export const handleSocketEmit = (type, roomId, event, data) => {
         const socketIo = handleSocket({
             type,
             roomId,
-            token: process.env.INTERNAL_WEBSOCKETS_TOKEN,
+            userId: process.env.INTERNAL_WEBSOCKETS_TOKEN,
         });
         console.log("connecting");
         socketIo.on("connect", () => {
@@ -54,4 +55,4 @@ export const handleSocketEmit = (type, roomId, event, data) => {
     });
 };
 
-export const socket = io("127.0.0.1");
+export const socket = io(process.env.NEXT_PUBLIC_HOSTNAME || "");

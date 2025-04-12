@@ -9,6 +9,8 @@ export const handleSocket = (options) => {
         throw new Error("Socket connection requires a type and roomId");
     }
 
+    console.log("CONNECTING:", type, roomId, userId)
+
     const connectionOptions = {
         autoConnect: true,
         reconnection: true,
@@ -17,8 +19,9 @@ export const handleSocket = (options) => {
         query: {
             type,
             roomId: roomId.toString(),
-            ...(token && { userId }),
+            userId,
         },
+        origins:"*",
     };
 
     return io(process.env.NEXT_PUBLIC_HOSTNAME || "", connectionOptions);
