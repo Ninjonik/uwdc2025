@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ActivePulse</title>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:400,700|Open+Sans:400"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <style>
+      body {
+        background-color: #012238;
+        font-family: "Open Sans", sans-serif;
+        text-align: center;
+        margin: 0px;
+        padding: 0;
+      }
+      #container {
+        font-family: "Open Sans", sans-serif;
+        background-color: #f5f1e8;
+        border: 5px solid #f26309;
+        margin: 50px auto;
+        padding: 50px 100px 50px;
+        width: 900px;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+      #logo {
+        width: 120px;
+        height: 100px;
+        margin-bottom: 25px;
+      }
+      #title {
+        font-family: "Poppins", sans-serif;
+        color: #012238;
+        font-size: 38px;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
+      #slogan {
+        font-family: "Open Sans", sans-serif;
+        font-size: 17px;
+        color: #f26309;
+        margin-bottom: 20px;
+        font-style: italic;
+        font-weight: bold;
+      }
+      #description {
+        font-family: "Open Sans", sans-serif;
+        font-size: 15px;
+        margin-bottom: 25px;
+      }
+      #pulse {
+        margin: 40px 0;
+      }
+      #startBtn {
+        position: relative;
+      }
+      #pulse-line {
+        transition: stroke-width 0.3s ease, stroke 0.3s ease;
+      }
+      .start-button {
+        background-color: #f26309;
+        color: white;
+        padding: 18px 40px;
+        font-size: 22px;
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        box-shadow: 0px 5px 10px #888888;
+      }
+      .start-button:hover {
+        background-color: #ff6000;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <img id="logo" src="logo.png" />
+      <div id="title">Welcome to ActivePulse</div>
+      <div id="slogan">Stay Ready. Stay Active. Stay Together.</div>
+      <div id="description">
+        It's never been easier to get moving. Just press start, and join your
+        community for a daily burst of fun and fitness.
+      </div>
+      <div id="pulse">
+        <svg width="200" height="100">
+          <polyline
+            points="0,50 20,50 30,20 40,80 50,50 70,50"
+            style="fill: none; stroke: #f26309; stroke-width: 4"
+            id="pulse-line"
+          />
+        </svg>
+      </div>
+      <input
+        type="button"
+        value="Start Now"
+        class="start-button"
+        id="startBtn"
+      />
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        function animateButtonBounce() {
+          $("#startBtn")
+            .animate({ top: "-5px" }, 200)
+            .animate({ top: "0px" }, 200);
+        }
+        setInterval(animateButtonBounce, 3000);
+
+        function pulseSVGLine() {
+          $("#pulse-line").css("stroke-width", "6").css("stroke", "#ff9244");
+          setTimeout(function () {
+            $("#pulse-line").css("stroke-width", "4").css("stroke", "#F26309");
+          }, 300);
+        }
+        setInterval(pulseSVGLine, 2000);
+        $("#startBtn").on("click", function () {
+          $("#startBtn").fadeTo(200, 0.5).fadeTo(200, 1.0);
+          setTimeout(function () {
+            window.location = "setup.html";
+          }, 1000);
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+{
+  "community": "cool-kids",
+  "admin-slug": "Gkuxw",
+  "members": [
+    { "id": "u1", "name": "Margit", "avatar": "avatar1.png" },
+    { "id": "u2", "name": "Franz", "avatar": "avatar2.png" },
+    { "id": "u3", "name": "Roberts", "avatar": "avatar3.png" },
+    { "id": "u4", "name": "Amina", "avatar": "avatar4.png" },
+    { "id": "u5", "name": "Leo", "avatar": "avatar5.png" }
+  ],
+  "currentExercise": {
+    "id": "ex3"
+  },
+  "exercises": [
+    { "id": "ex2", "name": "Squats" },
+    { "id": "ex3", "name": "Jumping Jacks" },
+    { "id": "ex4", "name": "Wall Sit" },
+    { "id": "ex6", "name": "Lunges" },
+    { "id": "ex8", "name": "Plank Hold" },
+    { "id": "ex9", "name": "Butt Kicks" },
+    { "id": "ex14", "name": "Tricep Dips (on chair)" },
+    { "id": "ex15", "name": "Step-Ups (on stairs or platform)" },
+    { "id": "ex19", "name": "Standing March" }
+  ],
+  "history": [
+    {
+      "id": "ex6",
+      "startTime": "2025-03-31T09:00:00Z",
+      "participants": [
+        { "userId": "u1", "reps": 20, "reactionTimeMinutes": 35 },
+        { "userId": "u2", "reps": 15, "reactionTimeMinutes": 42 },
+        { "userId": "u4", "reps": 10, "reactionTimeMinutes": 90 }
+      ]
+    },
+    {
+      "id": "ex2",
+      "startTime": "2025-03-30T09:00:00Z",
+      "participants": [
+        { "userId": "u1", "reps": 25, "reactionTimeMinutes": 40 },
+        { "userId": "u2", "reps": 25, "reactionTimeMinutes": 38 },
+        { "userId": "u5", "reps": 20, "reactionTimeMinutes": 100 }
+      ]
+    }
+  ]
+}
