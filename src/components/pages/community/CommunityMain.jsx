@@ -18,7 +18,6 @@ const CommunityMain = ({ initialCommunity, loggedInUser }) => {
 
     const { name, avatar, currentActivity, users, activities, exercises, createdAt, id } = community;
 
-    // Setup WebSocket connection
     useEffect(() => {
         if (!loggedInUser?.id) {
             console.error("No logged in user ID available for socket connection");
@@ -34,7 +33,6 @@ const CommunityMain = ({ initialCommunity, loggedInUser }) => {
             });
             socketRef.current = socket;
 
-            // Log socket connection events for debugging
             socket.on("connect", () => {
                 console.log("Socket connected!");
                 setIsConnected(true);
@@ -57,9 +55,7 @@ const CommunityMain = ({ initialCommunity, loggedInUser }) => {
                 console.log("Socket connection confirmed:", data);
             });
 
-            // Listen for the correct event name from the server
             socket.on("completionUpdate", (updatedCommunityData) => {
-                console.log("Received completion update:", updatedCommunityData);
                 const updatedCommunity = typeof updatedCommunityData === 'string'
                     ? JSON.parse(updatedCommunityData) 
                     : updatedCommunityData;
@@ -115,13 +111,6 @@ const CommunityMain = ({ initialCommunity, loggedInUser }) => {
                 )}
 
                 <MembersList users={users} />
-                
-                {/* TODO: debug indicator for websocket status - remove for production */}
-                {process.env.NODE_ENV === 'development' && (
-                    <div className="text-xs text-gray-500 fixed bottom-2 right-2">
-                        WebSocket: {isConnected ? 'Connected' : 'Disconnected'} ({transport})
-                    </div>
-                )}
             </div>
         </PageBase>
     );

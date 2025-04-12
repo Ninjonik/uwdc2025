@@ -46,16 +46,4 @@ const fireToast = (type, text = "", closeAfter = 5000, textPosition = "top-right
     return firedToast;
 };
 
-export const promiseToast = async (fn, pendingMsg = "Prebieha akcia...", successMsg = "Akcia prebehla úspešne!", errorMsg = "Pri vykonávaní akcie došlo ku chybe! Kontaktujte prosím administrátora.") => {
-    return await toast.promise(
-        fn,
-        {
-            pending: pendingMsg,
-            success: successMsg,
-            error: errorMsg,
-        },
-        options,
-    );
-};
-
 export default fireToast;

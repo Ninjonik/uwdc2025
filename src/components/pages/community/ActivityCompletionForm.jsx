@@ -29,8 +29,10 @@ const ActivityCompletionForm = ({ onSubmit, onCancel, activityId }) => {
   useEffect(() => {
     if(status && status?.type && status?.message){
       fireToast(status.type, status.message);
-      onSubmit();
       setSubmitting(false);
+      if(status?.type === "success"){
+        onSubmit();
+      }
     }
   }, [status]);
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import {FaClock, FaDumbbell, FaFire, FaMedal} from "react-icons/fa6";
+import {formatReactionTime} from "@/utils/formatters";
 
 const ParticipantsList = ({ participants, activityStartTime }) => {
 
@@ -20,7 +21,6 @@ const ParticipantsList = ({ participants, activityStartTime }) => {
       <div className="p-6">
         {participants.length > 0 ? (
           <div className="space-y-4">
-            {/* Column Headers */}
             <div className="hidden md:grid md:grid-cols-4 items-center px-4 text-xs font-semibold text-neutral/70 uppercase tracking-wider">
               <div className="col-span-1">Participant</div>
               <div className="col-span-1 text-center">Time</div>
@@ -68,7 +68,7 @@ const ParticipantsList = ({ participants, activityStartTime }) => {
                           <FaFire className="text-xs" />
                         </div>
                         <div className="text-sm font-medium text-accent">
-                            {participant.reaction} s
+                            {formatReactionTime(participant.reaction)}
                         </div>
                       </div>
                       
@@ -99,7 +99,7 @@ const ParticipantsList = ({ participants, activityStartTime }) => {
                     
                     <div className="col-span-1 text-center">
                       <span className="text-sm font-semibold text-accent">
-                        {participant.reaction} s
+                        {formatReactionTime(participant.reaction)}
                       </span>
                     </div>
                     

@@ -10,6 +10,7 @@ import {IoAddOutline} from "react-icons/io5";
 
 const CreateCommunityForm = () => {
     const [selectedAvatar, setSelectedAvatar] = useState(null);
+    const [submitting, setSubmitting] = useState(false);
     const [status, action] = useActionState(
         handleCreateCommunity,
         null,
@@ -19,6 +20,7 @@ const CreateCommunityForm = () => {
 
     useEffect(() => {
         if(status && status?.type && status?.message){
+            setSubmitting(false);
             fireToast(status.type, status.message);
             if(status.type === "success" && status?.data){
                 router.push(`/${status.data.id}`);
@@ -28,6 +30,7 @@ const CreateCommunityForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setSubmitting(true);
         const formData = new FormData(e.target);
         formData.set("avatar", selectedAvatar);
         startTransition(() => {
@@ -64,8 +67,7 @@ const CreateCommunityForm = () => {
                             type="button" 
                             key={i}
                         >
-                            <div className={`
-                                absolute inset-0 rounded-full 
+                            <div className={`absolute inset-0 rounded-full 
                                 ${selectedAvatar === "avatar-" + (i + 1).toString() 
                                   ? "bg-primary/20 ring-2 ring-primary" 
                                   : "opacity-0 group-hover:opacity-100 bg-primary/10"}
@@ -84,9 +86,13 @@ const CreateCommunityForm = () => {
             <button 
                 className="btn btn-primary w-full shadow-md mt-4 flex items-center gap-2" 
                 type="submit" 
-                disabled={!selectedAvatar}
+                disabled={!selectedAvatar || submitting}
             >
-                <IoAddOutline className="w-5 h-5" />
+                {submitting ? (
+                    <span className="loading loading-spinner loading-sm"></span>
+                ) : (
+                    <IoAddOutline className="w-5 h-5" />
+                )}
                 Create Community
             </button>
         </form>

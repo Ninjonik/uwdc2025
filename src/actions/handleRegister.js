@@ -19,10 +19,10 @@ export default async function handleRegister(_prevState, formData){
             avatar,
         }
     })
-    
+
     if(!newUser) return errorMessage("Something went wrong. Please try again.");
 
-    (await cookies()).set("user", JSON.stringify(newUser))
+    (await cookies()).set("user", JSON.stringify(newUser), { maxAge: 365 * 24 * 60 * 60 * 1000 })
 
     return successMessage("You have successfully registered.", newUser);
 }

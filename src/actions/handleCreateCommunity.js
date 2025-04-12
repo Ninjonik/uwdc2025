@@ -61,7 +61,7 @@ export default async function handleCreateCommunity(_prevState, formData){
 
     if(!newCommunity) return errorMessage("Something went wrong. Please try again.");
 
-    // Update the community with a new activity
+    // Update the community with the new activity
     const updatedCommunity = await prisma.community.update({
         where: {
             id: newCommunity.id,

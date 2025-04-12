@@ -34,6 +34,3 @@ export const handleSocket = (options) => {
     
     return socketInstance;
 };
-
-// Don't create a default socket - only create when needed with proper params
-// Removing this line: export const socket = io(process.env.NEXT_PUBLIC_HOSTNAME || "");

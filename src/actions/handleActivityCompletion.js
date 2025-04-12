@@ -7,7 +7,7 @@ import {handleSocketEmit} from "@/lib/serverSocket";
 
 export default async function handleActivityCompletion(_prevState, formData){
     const activityId = formData.get('activityId');
-    const reps = formData.get('reps') || (!formData.get('reps') && formData.get('reps') !== 0) ? parseInt(formData.get('reps')) : 0;
+    const reps = formData.get('reps') ? parseInt(formData.get('reps')) : 0;
 
     const user = await getLoggedInUser();
 
@@ -17,7 +17,7 @@ export default async function handleActivityCompletion(_prevState, formData){
 
     if(reps < 0) return errorMessage("Reps must be a positive number.");
 
-    // Check if user has the permissions to update the activity
+    // Check if user has the permission
     const communityCheck = await prisma.community.findFirst({
         where: {
             activities: {

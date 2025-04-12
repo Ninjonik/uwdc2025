@@ -16,21 +16,15 @@ export function formatTimeDifference(startTime) {
   return `${diffInHours} ${diffInHours === 1 ? 'hour' : 'hours'} ago`;
 }
 
-export function formatReactionTime(milliseconds) {
-  // Handle invalid input
-  if (isNaN(milliseconds) || milliseconds === null || milliseconds === undefined) {
+export function formatReactionTime(totalSeconds) {
+  if (isNaN(totalSeconds) || totalSeconds === null || totalSeconds === undefined) {
     return '-';
   }
-  
-  // Convert to seconds for easier calculation
-  const totalSeconds = milliseconds / 1000;
-  
-  // If less than 60 seconds, return seconds with one decimal place
+
   if (totalSeconds < 60) {
     return `${totalSeconds.toFixed(1)}s`;
   }
   
-  // Calculate minutes and remaining seconds
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = Math.floor(totalSeconds % 60);
   

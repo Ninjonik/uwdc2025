@@ -11,6 +11,7 @@ import {HiArrowRight} from "react-icons/hi";
 
 const GetStartedForm = () => {
     const [selectedAvatar, setSelectedAvatar] = useState(null);
+    const [submitting, setSubmitting] = useState(false);
     const [status, action] = useActionState(
         handleRegister,
         null,
@@ -21,6 +22,7 @@ const GetStartedForm = () => {
 
     useEffect(() => {
         if(status && status?.type && status?.message){
+            setSubmitting(false);
             fireToast(status.type, status.message);
             if(status.type === "success" && status?.data){
                 setUser(status.data);
@@ -31,6 +33,7 @@ const GetStartedForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setSubmitting(true);
         const formData = new FormData(e.target);
         formData.set("avatar", selectedAvatar);
         startTransition(() => {
@@ -80,8 +83,16 @@ const GetStartedForm = () => {
                 </div>
             </div>
             
-            <button className="btn btn-primary w-full shadow-md mt-4 flex items-center gap-2" type="submit">
-                <HiArrowRight className="w-5 h-5" />
+            <button 
+                className="btn btn-primary w-full shadow-md mt-4 flex items-center gap-2" 
+                type="submit"
+                disabled={submitting || !selectedAvatar}
+            >
+                {submitting ? (
+                    <span className="loading loading-spinner loading-sm"></span>
+                ) : (
+                    <HiArrowRight className="w-5 h-5" />
+                )}
                 Get Started
             </button>
         </form>
