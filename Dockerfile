@@ -4,7 +4,9 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --production
+RUN npm install --force
+
+RUN npx prisma generate
 
 COPY . .
 
