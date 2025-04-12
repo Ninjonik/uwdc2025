@@ -15,14 +15,14 @@ datasource db {
 }
 
 model User {
-  id          String       @id @default(cuid())
-  name        String
-  avatar      String
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  completions Completion[]
-  activities  Activity[]
-  communities Community[]
+  id               String       @id @default(cuid())
+  name             String
+  avatar           String
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  completions      Completion[]
+  communities      Community[]
+  ownedCommunities Community[]  @relation("OwnedCommunities")
 }
 
 model Community {
@@ -32,9 +32,11 @@ model Community {
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
   currentActivity Activity?    @relation("CurrentActivity")
-  activities      Activity[]
+  activities      Activity[]   @relation("Community")
   exercises       Exercise[]
   completions     Completion[]
+  ownerId         String
+  owner           User?        @relation("OwnedCommunities", fields: [ownerId], references: [id])
   users           User[]
 }
 
@@ -66,16 +68,15 @@ model Completion {
 }
 
 model Activity {
-  id          String       @id @default(cuid())
-  communityId String       @unique
-  exerciseId  String
-  users       User[]
-  status      Int          @default(0)
-  data        Json
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  community   Community    @relation("CurrentActivity", fields: [communityId], references: [id])
-  exercise    Exercise     @relation(fields: [exerciseId], references: [id])
-  communities Community[]
-  completions Completion[]
+  id                 String       @id @default(cuid())
+  communityId        String       @unique
+  currentCommunityId String?      @unique
+  exerciseId         String
+  status             Int          @default(0)
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+  currentCommunity   Community?   @relation("CurrentActivity", fields: [currentCommunityId], references: [id], map: "CurrentActivity_communityId_fkey")
+  exercise           Exercise     @relation(fields: [exerciseId], references: [id])
+  community          Community    @relation("Community", fields: [communityId], references: [id], map: "Community_communityId_fkey")
+  completions        Completion[]
 }

@@ -6,6 +6,7 @@ import {useUserContext} from "@/components/contexts/UserContext";
 
 export default function GetStarted() {
     const [isAnimating, setIsAnimating] = useState(false);
+    const {user} = useUserContext();
 
     const router = useRouter();
 
@@ -21,11 +22,12 @@ export default function GetStarted() {
     const handleStartClick = () => {
         setIsAnimating(true);
         setTimeout(() => {
-            router.push("/setup");
+            if(user)
+                return router.push("/communities");
+
+            return router.push("/setup");
         }, 1000);
     };
-
-    const {user} = useUserContext();
 
     return (
         <div className="flex justify-center items-center flex-row gap-2 mb-8 relative">

@@ -9,7 +9,7 @@ const LabelInput = ({
     ...inputProps
 }) => {
     return (
-        <label className={`${labelClassName} flex flex-row gap-2 items-center input`}>
+        <label className={`${labelClassName} flex flex-row gap-2 items-center input input-primary`}>
             {svgIcon && <span className={svgClassName}>{svgIcon}</span>}
             <input
                 type="text"

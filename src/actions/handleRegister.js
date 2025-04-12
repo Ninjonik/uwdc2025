@@ -5,7 +5,8 @@ import prisma from "@/lib/prisma";
 import {cookies} from "next/headers";
 
 export default async function handleRegister(_prevState, formData){
-    const { name, avatar } = formData;
+    const name = formData.get('name');
+    const avatar = formData.get('avatar');
 
     if(!name || !avatar) return errorMessage("Please fill all the fields.");
 

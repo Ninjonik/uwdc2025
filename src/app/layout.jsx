@@ -18,8 +18,18 @@ const openSans = Open_Sans({
 })
 
 export const metadata = {
-  title: "ActivePulse",
-  description: "Stay Ready. Stay Active. Stay Together.",
+    title: "ActivePulse",
+    description: "Stay Ready. Stay Active. Stay Together.",
+    generator: "Next.js",
+    manifest: "/manifest.json",
+    keywords: ["nextjs", "next14", "pwa", "next-pwa"],
+    themeColor: [{ media: "(prefers-color-scheme: dark)", color: "#fff" }],
+    viewport:
+        "minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover",
+    icons: [
+        { rel: "apple-touch-icon", url: "icon-192x192.png" },
+        { rel: "icon", url: "icon-192x192.png" },
+    ],
 };
 
 export default async function RootLayout({ children }) {
@@ -28,7 +38,7 @@ export default async function RootLayout({ children }) {
     <html lang="en">
         <UserContextProvider>
             <ClientWrapper user={user}>
-                <body className={`${poppins.className} ${openSans.variable} bg-neutral w-screen h-screen`}>
+                <body className={`${poppins.className} ${openSans.variable} bg-neutral w-screen h-screen overflow-hidden py-4`}>
                     <ToastContainer />
                     {children}
                 </body>

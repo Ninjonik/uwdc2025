@@ -1,12 +1,7 @@
-import React from 'react';
-import PageBase from "@/components/pages/PageBase";
+import Communities from "@/components/pages/setup/Communities";
 
-const Page = () => {
-    return (
-        <PageBase>
-            
-        </PageBase>
-    );
+const Page = async () => {
+    return <Communities />
 };
 
 export default Page;

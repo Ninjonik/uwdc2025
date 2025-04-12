@@ -2,20 +2,17 @@
 
 import React, {startTransition, useActionState, useEffect, useState} from 'react';
 import LabelInput from "@/components/form/LabelInput";
-import {FaUser} from "react-icons/fa6";
-import handleRegister from "@/actions/handleRegister";
 import fireToast from "@/utils/fireToast";
 import {useRouter} from "next/navigation";
-import {useUserContext} from "@/components/contexts/UserContext";
+import {TbLabelImportant} from "react-icons/tb";
+import handleCreateCommunity from "@/actions/handleCreateCommunity";
 
-const GetStartedForm = () => {
+const CreateCommunityForm = () => {
     const [selectedAvatar, setSelectedAvatar] = useState(null);
     const [status, action] = useActionState(
-        handleRegister,
+        handleCreateCommunity,
         null,
     );
-
-    const {setUser} = useUserContext();
 
     const router = useRouter();
 
@@ -23,8 +20,7 @@ const GetStartedForm = () => {
         if(status && status?.type && status?.message){
             fireToast(status.type, status.message);
             if(status.type === "success" && status?.data){
-                setUser(status.data);
-                router.refresh();
+                router.push(`/${status.data.id}`);
             }
         }
     }, [status]);
@@ -41,7 +37,7 @@ const GetStartedForm = () => {
 
     return (
         <form className={"flex flex-col gap-2 justify-center items-center"} onSubmit={handleSubmit}>
-            <LabelInput placeholder={"Your name"} svgIcon={<FaUser />} name={"name"} type={"text"} maxLength={50} minLength={1} required={true} />
+            <LabelInput placeholder={"Your community's slug"} svgIcon={<TbLabelImportant />} name={"name"} type={"text"} maxLength={50} minLength={1} required={true} pattern={"^[A-Za-z]+$"} />
             <div className={"flex flex-col gap-2"}>
                 <div className={"flex flex-wrap gap-2"}>
                     {Array.from({length: 19}, (_, i) => i).map(i => (
@@ -51,9 +47,9 @@ const GetStartedForm = () => {
                     ))}
                 </div>
             </div>
-            <button className="btn btn-primary" type={"submit"}>Start</button>
+            <button className="btn btn-primary" type={"submit"}>Create</button>
         </form>
     );
 };
 
-export default GetStartedForm;
+export default CreateCommunityForm;
