@@ -5,7 +5,7 @@
 Install dependencies:
 
 ```bash
-npm i
+npm i --force
 ```
 
 Generate the Prisma types:
@@ -31,7 +31,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 Install dependencies:
 
 ```bash
-npm i
+npm i --force
 ```
 
 Generate the Prisma types:
@@ -48,6 +48,11 @@ Build the application for production:
 
 ```bash
 npm run build
+```
+
+Start the production server:
+```bash
+npm run start`
 ```
 
 ### Made by Peter Zaťko
