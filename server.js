@@ -178,7 +178,7 @@ class SocketServerConfig {
     constructor(prisma, dev = process.env.NODE_ENV !== "production") {
         this.prisma = prisma;
         this.dev = dev;
-        this.hostname = "0.0.0.0";
+        this.hostname = "https://djbjc-frontend.uwdc.skill17.com";
         this.port = dev ? 3000 : 80;
     }
 
