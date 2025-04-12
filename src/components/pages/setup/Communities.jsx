@@ -39,7 +39,7 @@ const Communities = async () => {
                     <h3>Join an existing community</h3>
                     <JoinCommunityForm />
                 </section>
-                <section className={"flex flex-col gap-2 justify-center items-center"}>
+                <section className={"flex flex-col gap-2 justify-center items-center w-full"}>
                     <h3>Create a new community</h3>
                     <CreateCommunityForm />
                 </section>
