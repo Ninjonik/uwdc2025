@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 COPY prisma/schema.prisma ./prisma/
-COPY .env .
+COPY .env.production .
 
 RUN npm install --force
 

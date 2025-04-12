@@ -52,7 +52,9 @@ npm run build
 
 Start the production server:
 ```bash
-npm run start`
+npm run start
 ```
+
+The server should now be running at http://0.0.0.0:80
 
 ### Made by Peter Zaťko
