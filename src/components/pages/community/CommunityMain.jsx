@@ -20,44 +20,71 @@ const CommunityMain = ({ initialCommunity, loggedInUser }) => {
 
     // Setup WebSocket connection
     useEffect(() => {
-        const socket = handleSocket({
-            type: "community",
-            roomId: id,
-            userId: loggedInUser.id,
-        });
-        socketRef.current = socket;
+        if (!loggedInUser?.id) {
+            console.error("No logged in user ID available for socket connection");
+            return;
+        }
+        
+        let socket;
+        try {
+            socket = handleSocket({
+                type: "community",
+                roomId: id,
+                userId: loggedInUser.id,
+            });
+            socketRef.current = socket;
 
-        socket.on("connect", () => {
-            setIsConnected(true);
-            setTransport(socket.io.engine.transport.name);
-        });
+            // Log socket connection events for debugging
+            socket.on("connect", () => {
+                console.log("Socket connected!");
+                setIsConnected(true);
+                setTransport(socket.io.engine.transport.name);
+            });
 
-        socket.on("disconnect", () => {
-            setIsConnected(false);
-            setTransport("N/A");
-        });
+            socket.on("disconnect", () => {
+                console.log("Socket disconnected!");
+                setIsConnected(false);
+                setTransport("N/A");
+            });
 
-        socket.on("activityCompletion", (updatedCommunityData) => {
-            console.log("GOT NEW UPDATE", updatedCommunityData)
-            const updatedCommunity = typeof updatedCommunityData === 'string'
-                ? JSON.parse(updatedCommunityData) 
-                : updatedCommunityData;
-            
-            setCommunity(updatedCommunity);
-        });
+            socket.on("connect_error", (error) => {
+                console.error("Socket connection error:", error);
+                setIsConnected(false);
+                setTransport("N/A");
+            });
+
+            socket.on("connectionConfirmed", (data) => {
+                console.log("Socket connection confirmed:", data);
+            });
+
+            // Listen for the correct event name from the server
+            socket.on("completionUpdate", (updatedCommunityData) => {
+                console.log("Received completion update:", updatedCommunityData);
+                const updatedCommunity = typeof updatedCommunityData === 'string'
+                    ? JSON.parse(updatedCommunityData) 
+                    : updatedCommunityData;
+                
+                setCommunity(updatedCommunity);
+            });
+        } catch (error) {
+            console.error("Error setting up socket connection:", error);
+        }
 
         return () => {
-            socket.off("connect");
-            socket.off("disconnect");
-            socket.off("joinRoom");
-            socket.off("leaveRoom");
-            socket.off("activityCompletion");
-            socket.disconnect();
+            if (socketRef.current) {
+                console.log("Cleaning up socket connection");
+                socketRef.current.off("connect");
+                socketRef.current.off("disconnect");
+                socketRef.current.off("connect_error");
+                socketRef.current.off("connectionConfirmed");
+                socketRef.current.off("completionUpdate");
+                socketRef.current.disconnect();
+            }
         };
-    }, [id, loggedInUser.id]);
+    }, [id, loggedInUser?.id]);
 
     const isActivityCompleted = currentActivity?.completions?.some(
-        (completion) => completion.user.id === loggedInUser.id
+        (completion) => completion.user.id === loggedInUser?.id
     ) || false;
 
     return (

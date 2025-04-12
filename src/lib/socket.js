@@ -5,11 +5,11 @@ import {io} from "socket.io-client";
 export const handleSocket = (options) => {
     const { type, roomId, userId } = options;
 
-    if (!type || !roomId) {
-        throw new Error("Socket connection requires a type and roomId");
+    if (!type || !roomId || !userId) {
+        throw new Error("Socket connection requires a type, roomId and userId");
     }
 
-    console.log("CONNECTING:", type, roomId, userId)
+    console.log("CONNECTING:", type, roomId, userId);
 
     const connectionOptions = {
         autoConnect: true,
@@ -19,12 +19,21 @@ export const handleSocket = (options) => {
         query: {
             type,
             roomId: roomId.toString(),
-            userId,
+            userId: userId.toString(),
         },
-        origins:"*",
+        transports: ['websocket', 'polling'],
     };
 
-    return io(process.env.NEXT_PUBLIC_HOSTNAME || "", connectionOptions);
+    const socketUrl = process.env.NEXT_PUBLIC_HOSTNAME || "http://localhost:3000";
+    const socketInstance = io(socketUrl, connectionOptions);
+    
+    // Add error handling
+    socketInstance.on('connect_error', (error) => {
+        console.error('Socket connection error:', error);
+    });
+    
+    return socketInstance;
 };
 
-export const socket = io(process.env.NEXT_PUBLIC_HOSTNAME || "");
+// Don't create a default socket - only create when needed with proper params
+// Removing this line: export const socket = io(process.env.NEXT_PUBLIC_HOSTNAME || "");

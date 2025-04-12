@@ -72,6 +72,13 @@ export default async function handleActivityCompletion(_prevState, formData){
                     id: activityId,
                 }
             }
+        },
+        include: {
+            activity: {
+                include: {
+                    community: true
+                }
+            }
         }
     })
 

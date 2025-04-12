@@ -137,13 +137,16 @@ class CommunitySocketHandler extends BaseSocketHandler {
             }
 
             const parsedData = JSON.parse(newActivityCompletion);
-            const id = parsedData.id;
+            const id = parsedData.activity.communityId;
 
             const newCommunityData = await getCommunityBySlug(id);
 
-            console.log("SENDING NEW COMPLETION UPDATE", newCommunityData)
+            console.log(`SENDING NEW COMPLETION UPDATE TO ROOM ${id}`)
             this.io.to(id).emit("completionUpdate", newCommunityData);
         });
+        
+        // Add connection confirmation
+        socket.emit("connectionConfirmed", { userId: socket.userId });
     }
 }
 
@@ -174,6 +177,13 @@ class SocketServerConfig {
 
         io.use(async (socket, next) => {
             try {
+                const { userId, type, roomId } = socket.handshake.query;
+                
+                if (!type || !roomId) {
+                    console.error("Missing required connection parameters", socket.handshake.query);
+                    return next(new Error("Missing required connection parameters"));
+                }
+                
                 const decoded = await AuthenticationService.authenticateSocket(socket);
                 if (decoded) {
                     socket.userId = decoded;
@@ -191,7 +201,7 @@ class SocketServerConfig {
 
         io.on("connection", async (socket) => {
             const connectionType = socket.handshake.query.type;
-            const roomId = parseInt(socket.handshake.query.roomId);
+            const roomId = socket.handshake.query.roomId;
 
             try {
                 const handler = SocketHandlerFactory.createHandler(
@@ -219,7 +229,7 @@ class SocketServerConfig {
                     socket.join(roomId.toString());
                 }
 
-                console.log(`User ${socket.userId} connected to ${connectionType}`);
+                console.log(`User ${socket.userId} connected to ${connectionType} ${roomId}`);
             } catch (error) {
                 console.error(`Error setting up socket handler: ${error}`);
                 socket.disconnect(true);
