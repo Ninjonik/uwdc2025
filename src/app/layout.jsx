@@ -1,5 +1,9 @@
 import {Open_Sans, Poppins} from "next/font/google";
 import "./globals.css";
+import {UserContextProvider} from "@/components/contexts/UserContext";
+import ClientWrapper from "@/app/ClientWrapper";
+import {getLoggedInUser} from "@/utils/getLoggedInUser";
+import {ToastContainer} from "react-toastify";
 
 const poppins = Poppins({
     variable: "--font-poppins",
@@ -18,12 +22,18 @@ export const metadata = {
   description: "Stay Ready. Stay Active. Stay Together.",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+    const user = await getLoggedInUser();
   return (
     <html lang="en">
-      <body className={`${poppins.className} ${openSans.variable} bg-neutral w-screen h-screen`}>
-        {children}
-      </body>
+        <UserContextProvider>
+            <ClientWrapper user={user}>
+                <body className={`${poppins.className} ${openSans.variable} bg-neutral w-screen h-screen`}>
+                    <ToastContainer />
+                    {children}
+                </body>
+            </ClientWrapper>
+        </UserContextProvider>
     </html>
   );
 }
