@@ -1,4 +1,5 @@
 # UWDC 2025 - ActivePulse
+
 ### UWDC 2025 Competition, 7 hours in total
 
 ## Setting up development environment
