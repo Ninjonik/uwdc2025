@@ -15,7 +15,7 @@ Generate the Prisma types:
 npx prisma generate
 ```
 
-Run the database migrations? - optional:
+Run the database migrations - optional:
 ```bash
 npx prisma db push 
 ```
